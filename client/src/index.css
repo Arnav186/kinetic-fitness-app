@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #cafd00;
+  --color-background: #0e0e0e;
+  --font-headline: 'Lexend', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-label: 'Space Grotesk', sans-serif;
+}
+
+body {
+  background-color: var(--color-background);
+  color: #fff;
+  font-family: var(--font-body);
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+body::-webkit-scrollbar {
+  display: none;
+}
