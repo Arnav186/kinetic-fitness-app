@@ -19,9 +19,9 @@ async function connectDB() {
 
 connectDB();
 
-app.use('/auth', require('./routes/auth'));
-app.use('/workout', require('./routes/workout'));
-app.use('/fast', require('./routes/fasting'));
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/workout', require('./routes/workout'));
+app.use('/api/fast', require('./routes/fasting'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
