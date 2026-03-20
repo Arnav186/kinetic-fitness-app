@@ -1,14 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Activity, Dumbbell, Timer, BarChart, LogOut } from 'lucide-react';
+import { Activity, Dumbbell, Timer, BarChart } from 'lucide-react';
 
-export default function Navbar({ token, setToken }) {
+export default function Navbar() {
   const location = useLocation();
-  if (!token) return null;
-
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    setToken(null);
-  };
 
   const NavItem = ({ to, icon, label }) => {
     const active = location.pathname === to;
@@ -26,10 +20,6 @@ export default function Navbar({ token, setToken }) {
       <NavItem to="/add-workout" icon={<Dumbbell size={20} />} label="Workout" />
       <NavItem to="/fasting" icon={<Timer size={20} />} label="Fast" />
       <NavItem to="/bmi" icon={<BarChart size={20} />} label="BMI" />
-      <button onClick={handleLogout} className="flex flex-col items-center justify-center text-[#adaaaa] transition-all duration-200 ease-out px-4 py-2 scale-95 hover:text-red-400">
-        <LogOut size={20}/>
-        <span className="font-label text-[9px] font-bold tracking-widest uppercase mt-1">Logout</span>
-      </button>
     </nav>
   );
 }

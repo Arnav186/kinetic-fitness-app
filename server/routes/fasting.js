@@ -1,22 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
 const Fasting = require('../models/Fasting');
 
-router.post('/start', auth, async (req, res) => {
+router.post('/start', async (req, res) => {
   try {
-    // Check if active fast
-    let activeFast = await Fasting.findOne({ user: req.user.id, status: 'active' });
+    let activeFast = await Fasting.findOne({ status: 'active' });
     if(activeFast) return res.status(400).json({msg: "You already have an active fast"});
-    const newFast = new Fasting({ user: req.user.id, startTime: new Date() });
+    const newFast = new Fasting({ startTime: new Date() });
     await newFast.save();
     res.json(newFast);
-  } catch(err) { res.status(500).send('Server Error'); }
+  } catch(err) { res.status(500).json({msg: 'Fast Error: ' + err.message}); }
 });
 
-router.post('/stop', auth, async (req, res) => {
+router.post('/stop', async (req, res) => {
   try {
-    let activeFast = await Fasting.findOne({ user: req.user.id, status: 'active' });
+    let activeFast = await Fasting.findOne({ status: 'active' });
     if(!activeFast) return res.status(400).json({msg: "No active fast found"});
     activeFast.status = 'completed';
     activeFast.endTime = new Date();
@@ -25,9 +23,9 @@ router.post('/stop', auth, async (req, res) => {
   } catch (err) { res.status(500).json({msg: 'Fast Error: ' + err.message}); }
 });
 
-router.get('/status', auth, async (req, res) => {
+router.get('/status', async (req, res) => {
   try {
-    const activeFast = await Fasting.findOne({ user: req.user.id, status: 'active' });
+    const activeFast = await Fasting.findOne({ status: 'active' });
     if(activeFast) {
       res.json({ active: true, startTime: activeFast.startTime });
     } else {
@@ -36,11 +34,11 @@ router.get('/status', auth, async (req, res) => {
   } catch (err) { res.status(500).json({msg: 'Fast Error: ' + err.message}); }
 });
 
-router.get('/history', auth, async (req, res) => {
+router.get('/history', async (req, res) => {
   try {
-    const history = await Fasting.find({ user: req.user.id, status: 'completed' }).sort({ startTime: -1 });
+    const history = await Fasting.find({ status: 'completed' }).sort({ startTime: -1 });
     res.json(history);
-  } catch(err) { res.status(500).send('Server Error'); }
+  } catch(err) { res.status(500).json({msg: 'Fast Error: ' + err.message}); }
 });
 
 module.exports = router;
