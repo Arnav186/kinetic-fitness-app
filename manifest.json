@@ -1,0 +1,15 @@
+{
+  "name": "Kinetic Fitness",
+  "short_name": "Kinetic",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0e0e0e",
+  "theme_color": "#0e0e0e",
+  "icons": [
+    {
+      "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuDx1gng4GJyZYdp7iKj48JW3MWVCC4kYGyEMPp4C8NAniLAHxu8rIoocembqt79FeCy7P902bU_HiDqg5IyEbdNAxjLtpklNWXykuXzb9OUlSZD63UdKmKsJJVEZY_FFJTMkeerNxXaX99GvFXvS2rSbnFVXn2irkrvEV_mQ_R_P3Moe4Q7FuAV_i1rDDz07t_phhNBP4FRVW5-4hcaAbIrM_JxvhY1CCpxX7jHHiVJnmHHnKg8Y7J10Veu2qjE_gtaBegYD-Yte9fC",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

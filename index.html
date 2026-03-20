@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Kinetic Fitness</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0e0e0e">
+  <link rel="apple-touch-icon" href="https://lh3.googleusercontent.com/aida-public/AB6AXuDx1gng4GJyZYdp7iKj48JW3MWVCC4kYGyEMPp4C8NAniLAHxu8rIoocembqt79FeCy7P902bU_HiDqg5IyEbdNAxjLtpklNWXykuXzb9OUlSZD63UdKmKsJJVEZY_FFJTMkeerNxXaX99GvFXvS2rSbnFVXn2irkrvEV_mQ_R_P3Moe4Q7FuAV_i1rDDz07t_phhNBP4FRVW5-4hcaAbIrM_JxvhY1CCpxX7jHHiVJnmHHnKg8Y7J10Veu2qjE_gtaBegYD-Yte9fC">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700;900&family=Manrope:wght@400;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#f3ffca",
+            "outline": "#767575",
+            "surface-tint": "#f3ffca",
+            "error-dim": "#d53d18",
+            "on-surface": "#ffffff",
+            "surface-container": "#1a1a1a",
+            "on-tertiary-container": "#005359",
+            "primary-container": "#cafd00",
+            "inverse-on-surface": "#565555",
+            "secondary": "#ff7439",
+            "on-surface-variant": "#adaaaa",
+            "background": "#0e0e0e",
+            "surface-variant": "#262626",
+            "tertiary-fixed": "#00eefc",
+            "surface-bright": "#2c2c2c",
+            "primary-fixed": "#cafd00",
+            "tertiary-container": "#00eefc",
+            "on-primary": "#516700",
+            "surface-container-low": "#131313",
+            "surface-dim": "#0e0e0e",
+            "surface-container-high": "#20201f",
+            "error-container": "#b92902",
+            "on-error-container": "#ffd2c8",
+            "on-primary-container": "#4a5e00",
+            "surface": "#0e0e0e",
+            "tertiary": "#8ff5ff",
+            "surface-container-highest": "#262626",
+            "error": "#ff7351",
+            "on-tertiary": "#005d63",
+            "surface-container-lowest": "#000000",
+            "on-background": "#ffffff",
+            "secondary-container": "#a73a00",
+            "on-secondary-container": "#fff6f3"
+          },
+          fontFamily: {
+            "headline": ["Lexend"],
+            "body": ["Manrope"],
+            "label": ["Space Grotesk"]
+          },
+          borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+        },
+      },
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .material-symbols-outlined.filled {
+        font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    body {
+      min-height: max(884px, 100dvh);
+    }
+    /* Simple page transition */
+    .page-section {
+      transition: opacity 0.3s ease-out;
+    }
+    .page-section.hidden {
+      display: none;
+      opacity: 0;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary antialiased min-h-screen pb-32">
+
+  <!-- Toast Notifications Container -->
+  <div id="toast-container" class="fixed top-24 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Shared TopAppBar -->
+  <header id="top-app-bar" class="fixed top-0 w-full z-50 flex items-center justify-between px-6 h-20 w-full bg-[#0e0e0e]/60 backdrop-blur-xl no-border bg-gradient-to-b from-[#131313] to-transparent hidden">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary/20 bg-surface-variant">
+        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDvvfc1k6lRomrDNenUoWzTZVQhL0-KrHXD8XCfLsvl5A_ZvGgBTi0spLnP0KNLpJ7IvyvmgPCIzEX_8lDcpucQ_Jbn4Qfy0JDlU4YIt3X7X3CRrSnVPZqwqweJy3UmEaqkAuQ9ettPNjCgSEdKGS2cK-HeBPw9921A0Yw767K-v5sM-a2QwCVyrKmJ3o-9XobtyD8eCXU3avuRlDj6yNSvDquM6-TvadWpS4zWgQlU5A8yYPvfNoSxSoHGYsEE7CXt8Cy8LMuXfPs" alt="User Profile">
+      </div>
+      <span class="text-2xl font-black text-[#f3ffca] tracking-[0.2em] font-headline uppercase"><span style="letter-spacing: 4.8px; background-color: rgb(14, 14, 14);">FITNESS RACE</span></span>
+    </div>
+    <button class="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container-high text-[#f3ffca] transition-colors hover:bg-surface-bright active:scale-95">
+      <span class="material-symbols-outlined">bolt</span>
+    </button>
+  </header>
+
+  <!-- Login Page -->
+  <main id="view-login" class="page-section min-h-screen flex flex-col justify-center px-6 max-w-md mx-auto pb-32">
+    <div class="text-center mb-12">
+      <div class="w-20 h-20 rounded-full border-2 border-primary/20 bg-surface-variant flex items-center justify-center mx-auto mb-6 shadow-[0_0_30px_rgba(202,253,0,0.2)]">
+        <span class="material-symbols-outlined text-4xl text-primary">bolt</span>
+      </div>
+      <h1 class="font-headline text-5xl font-black tracking-tighter uppercase mb-2">Kinetic</h1>
+      <p class="font-label text-on-surface-variant tracking-widest text-sm uppercase text-primary">Precision Fitness</p>
+    </div>
+    
+    <form id="login-form" class="space-y-6">
+      <div class="space-y-2">
+        <label class="font-label text-xs tracking-widest uppercase text-on-surface-variant">Email</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-on-surface-variant material-symbols-outlined">person</span>
+          <input type="email" class="w-full bg-surface-container-high border-none rounded-xl py-4 pl-12 pr-4 text-on-surface focus:ring-1 focus:ring-primary/50 transition-all font-body placeholder:text-on-surface-variant/30" placeholder="Enter your email" value="marcus@kinetic.com">
+        </div>
+      </div>
+      <div class="space-y-2">
+        <label class="font-label text-xs tracking-widest uppercase text-on-surface-variant">Password</label>
+        <div class="relative">
+          <span class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-on-surface-variant material-symbols-outlined">lock</span>
+          <input type="password" class="w-full bg-surface-container-high border-none rounded-xl py-4 pl-12 pr-4 text-on-surface focus:ring-1 focus:ring-primary/50 transition-all font-body placeholder:text-on-surface-variant/30" placeholder="••••••••" value="password">
+        </div>
+      </div>
+      
+      <button type="submit" id="login-btn" class="w-full bg-primary text-[#0e0e0e] font-headline font-black py-4 mt-8 rounded-full tracking-widest uppercase flex items-center justify-center gap-2 hover:bg-primary-container transition-all active:scale-95">
+        <span class="btn-text">Log In</span>
+        <span class="material-symbols-outlined btn-icon text-sm">arrow_forward</span>
+      </button>
+    </form>
+  </main>
+
+  <!-- Dashboard Page -->
+  <main id="view-dashboard" class="page-section hidden pt-24 px-6 max-w-md mx-auto">
+    <!-- Daily Goal Hero -->
+    <section class="relative mb-10 pt-4">
+      <div class="flex flex-col items-center">
+        <div class="relative w-64 h-64 flex items-center justify-center">
+          <svg class="absolute w-full h-full -rotate-90" viewBox="0 0 100 100">
+            <circle class="text-surface-variant" cx="50" cy="50" fill="transparent" r="45" stroke="currentColor" stroke-width="8"></circle>
+            <circle id="daily-goal-ring" class="text-primary" cx="50" cy="50" fill="transparent" r="45" stroke="currentColor" stroke-dasharray="282.7" stroke-dashoffset="282.7" stroke-linecap="round" stroke-width="8"></circle>
+          </svg>
+          <div class="text-center z-10">
+            <span class="font-label text-on-surface-variant tracking-widest text-xs uppercase">Daily Goal</span>
+            <div class="font-headline text-6xl font-black tracking-tighter mt-1"><span id="daily-goal-text">0</span><span class="text-2xl text-primary">%</span></div>
+            <div class="font-label text-tertiary text-[10px] tracking-widest mt-2">1,250 / 2,000 KCAL</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Metrics Bento Grid -->
+    <section class="grid grid-cols-2 gap-4 mb-10">
+      <div class="col-span-2 bg-surface-container-high rounded-xl p-6 flex flex-col justify-between h-32 relative overflow-hidden">
+        <div class="absolute -right-4 -top-4 w-24 h-24 bg-primary/5 rounded-full blur-2xl"></div>
+        <div>
+          <span class="font-label text-[10px] tracking-[0.2em] text-on-surface-variant uppercase">Steps</span>
+          <div class="font-headline text-4xl font-black text-primary mt-1" id="steps-text">0</div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="h-1 w-full bg-surface-variant rounded-full">
+            <div id="steps-bar" class="h-full bg-primary rounded-full transition-all duration-1000" style="width: 0%;"></div>
+          </div>
+          <span class="font-label text-[10px] text-on-surface-variant whitespace-nowrap">84%</span>
+        </div>
+      </div>
+      <div class="bg-surface-container-high rounded-xl p-5 flex flex-col gap-2">
+        <div class="flex items-center justify-between">
+          <span class="material-symbols-outlined filled text-secondary">local_fire_department</span>
+          <span class="font-label text-[10px] text-on-surface-variant">KCAL</span>
+        </div>
+        <div>
+          <div class="font-headline text-2xl font-bold" id="kcal-text">0</div>
+          <span class="text-[10px] font-label text-secondary uppercase tracking-tight">+12% vs yesterday</span>
+        </div>
+      </div>
+      <div class="bg-surface-container-high rounded-xl p-5 flex flex-col gap-2">
+        <div class="flex items-center justify-between">
+          <span class="material-symbols-outlined filled text-tertiary">timer</span>
+          <span class="font-label text-[10px] text-on-surface-variant">MINS</span>
+        </div>
+        <div>
+          <div class="font-headline text-2xl font-bold" id="mins-text">0</div>
+          <span class="text-[10px] font-label text-tertiary uppercase tracking-tight">Active today</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upcoming Workout Section -->
+    <section class="mb-6 workout-card" data-title="Power Pull & Back">
+      <div class="flex justify-between items-end mb-4 px-1">
+        <h2 class="font-headline text-xl font-black tracking-tight uppercase">Upcoming Workout</h2>
+        <span class="font-label text-[10px] text-primary tracking-widest uppercase cursor-pointer" onclick="document.querySelector('[data-target=\'workouts\']').click()">View All</span>
+      </div>
+      <div class="relative bg-surface-container-high rounded-xl overflow-hidden group">
+        <div class="h-56 relative">
+          <img class="w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9WexkmTtMoBXeJFoFZ5SBkBAHGKSzkQiurKMl3jSmaN-xrz16dMFXWu6LmxlHtML4xtq1DBm1vYnqUXQMdGpAOPC2VbdgbQbEg5LvIndtmSHow5L2e-Yq3QWIuTOiC9lhPKmseLIwX81pNU3IN6dwoGk7lM0NuD-HH6srS3MIDV85p9xUxGuqQrbkGAH_0zwkcQpodEKT63NwACGV6YqE1x9QcC5C07qwGEbO39MzE4LPIYXcmB5k3jNFpm1TewXS0VdBhbP7DTwW" alt="Motivation Image">
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-container-high via-surface-container-high/40 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 p-6 w-full">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="bg-secondary text-background px-2 py-0.5 rounded-full font-label text-[9px] font-bold tracking-[0.15em] uppercase">Hypertrophy</span>
+              <span class="text-on-surface-variant font-label text-[10px]">45 MIN • ADVANCED</span>
+            </div>
+            <h3 class="font-headline text-3xl font-black leading-none mb-4 uppercase">Power Pull & Back</h3>
+            <button class="w-full bg-primary-container text-[#4a5e00] font-headline font-black py-4 rounded-full tracking-widest uppercase flex items-center justify-center gap-2 hover:bg-primary transition-all active:scale-95">
+              START WORKOUT
+              <span class="material-symbols-outlined">play_arrow</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Card / Tip -->
+    <section class="bg-surface-variant/40 rounded-xl p-4 flex items-center gap-4">
+      <div class="w-12 h-12 rounded-lg bg-surface-bright flex items-center justify-center text-tertiary">
+        <span class="material-symbols-outlined filled">insights</span>
+      </div>
+      <div>
+        <p class="text-xs text-on-surface-variant font-medium italic">"Consistency is the engine of progress. You're on a 4-day streak!"</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Workouts Page -->
+  <main id="view-workouts" class="page-section hidden pt-24 px-6 max-w-2xl mx-auto">
+    <!-- Search Section -->
+    <section class="mb-8">
+      <div class="relative group">
+        <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none text-on-surface-variant">
+          <span class="material-symbols-outlined text-xl">search</span>
+        </div>
+        <input id="workout-search" class="w-full bg-surface-container-lowest border-none rounded-xl py-4 pl-12 pr-4 text-on-surface placeholder:text-on-surface-variant/50 focus:ring-1 focus:ring-primary/20 transition-all font-label tracking-wide" placeholder="Search your next burn..." type="text">
+      </div>
+    </section>
+
+    <!-- Category Chips -->
+    <section class="mb-10 -mx-6 px-6 overflow-x-auto flex gap-3 no-scrollbar">
+      <button class="filter-btn bg-primary text-[#4a5e00] px-6 py-2 rounded-full font-label text-xs font-bold whitespace-nowrap tracking-widest transition-transform active:scale-95" data-category="ALL">ALL</button>
+      <button class="filter-btn bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-full font-label text-xs font-bold whitespace-nowrap tracking-widest hover:text-on-surface transition-all active:scale-95" data-category="STRENGTH">STRENGTH</button>
+      <button class="filter-btn bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-full font-label text-xs font-bold whitespace-nowrap tracking-widest hover:text-on-surface transition-all active:scale-95" data-category="YOGA">YOGA</button>
+      <button class="filter-btn bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-full font-label text-xs font-bold whitespace-nowrap tracking-widest hover:text-on-surface transition-all active:scale-95" data-category="HIIT">HIIT</button>
+      <button class="filter-btn bg-surface-container-high text-on-surface-variant px-6 py-2 rounded-full font-label text-xs font-bold whitespace-nowrap tracking-widest hover:text-on-surface transition-all active:scale-95" data-category="CARDIO">CARDIO</button>
+    </section>
+
+    <!-- Workout Library -->
+    <div class="space-y-8" id="workout-list">
+      <div class="flex items-end justify-between">
+        <h2 class="font-headline text-3xl font-black tracking-tighter uppercase leading-none">Library</h2>
+        <span class="font-label text-xs text-secondary font-bold tracking-[0.2em]"><span id="workout-count">3</span> PROGRAMS</span>
+      </div>
+
+      <!-- Workout Card 1 -->
+      <div class="workout-card group relative bg-surface-container-high rounded-xl overflow-hidden transition-all duration-300" data-category="HIIT" data-title="Full Body Burn">
+        <div class="relative h-64 w-full">
+          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx1gng4GJyZYdp7iKj48JW3MWVCC4kYGyEMPp4C8NAniLAHxu8rIoocembqt79FeCy7P902bU_HiDqg5IyEbdNAxjLtpklNWXykuXzb9OUlSZD63UdKmKsJJVEZY_FFJTMkeerNxXaX99GvFXvS2rSbnFVXn2irkrvEV_mQ_R_P3Moe4Q7FuAV_i1rDDz07t_phhNBP4FRVW5-4hcaAbIrM_JxvhY1CCpxX7jHHiVJnmHHnKg8Y7J10Veu2qjE_gtaBegYD-Yte9fC" alt="Full Body Burn">
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-container-high via-transparent to-transparent"></div>
+          <div class="absolute top-4 left-4 flex gap-2">
+            <span class="bg-secondary text-background px-3 py-1 rounded-full font-label text-[10px] font-bold tracking-widest uppercase">HIIT</span>
+            <span class="bg-black/40 backdrop-blur-md text-primary px-3 py-1 rounded-full font-label text-[10px] font-bold tracking-widest uppercase">ADVANCED</span>
+          </div>
+        </div>
+        <div class="p-6 relative -mt-12">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-headline text-2xl font-bold tracking-tight uppercase group-hover:text-primary transition-colors">Full Body Burn</h3>
+            <div class="flex items-center gap-1 text-tertiary">
+              <span class="material-symbols-outlined text-sm">schedule</span>
+              <span class="font-label text-xs font-bold">45 MIN</span>
+            </div>
+          </div>
+          <p class="text-on-surface-variant text-sm mb-6 max-w-xs leading-relaxed">High-intensity explosive movements designed to maximize caloric afterburn.</p>
+          <div class="flex items-center justify-between">
+            <div class="flex -space-x-2">
+              <div class="w-8 h-8 rounded-full border-2 border-surface-container-high bg-surface-bright flex items-center justify-center overflow-hidden">
+                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7wUDcBdg_ZIeFsVQ3wkvyevZQe9O6_HFW6qWAFBOCfEzMiJmkhxVI54ICfI_e-JbCZoJ_N_CzgWsy73WjXF4Oooy2_sat8PBlQ2r1-2Ln2NbMKjhyfjM-JvyP8CB7FtZWlvreI8vDnU_yXMHfqO5mNuvjGA7jcYqFhRQ-VdavokXh2LRqHz0knsWrgGga9Vg_yzPVbu1VJIWYZ8NjD4AZFgihOaJeCNlKdgnWreRygQdPUQ0UVkYOGP2cF0_15trM_03MGQV6_Yj0" alt="Trainer 1">
+              </div>
+              <div class="w-8 h-8 rounded-full border-2 border-surface-container-high bg-surface-bright flex items-center justify-center text-[10px] font-bold font-label text-on-surface-variant">+12</div>
+            </div>
+            <button class="start-workout-btn bg-primary-container text-[#4a5e00] h-10 px-6 rounded-full font-label text-xs font-black tracking-widest flex items-center gap-2 active:scale-95 transition-transform">
+              START <span class="material-symbols-outlined text-sm filled">play_arrow</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Workout Card 2 -->
+      <div class="workout-card group relative bg-surface-container-high rounded-xl overflow-hidden transition-all duration-300" data-category="YOGA" data-title="Structural Flow">
+        <div class="relative h-64 w-full">
+          <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcSOCmei213CE8OUFKyZv1QQEBE__AIK0QBtaRTs2xW4POIh92YH_hKgbtVnYmkt1yvQX_Ud7G9JjMApNLIhO88-plQhTcIYNyiNtG-fOXULO4_AEVao1t-FswUVrgTVTpV3naweJYgWnr_gmdDEs1HVUhwGhDbuuPmDK6VIFvjr15UCoYJ23Ggh_isPUP9pAEN_fS7_cGCvR0emiIZIYJBnKqZAxpIlyuZDRRGbiG7MU51EDC4qtl_VM_xayRV3pxwQBHKG9EdrFH" alt="Yoga Check">
+          <div class="absolute inset-0 bg-gradient-to-t from-surface-container-high via-transparent to-transparent"></div>
+          <div class="absolute top-4 left-4 flex gap-2">
+            <span class="bg-tertiary-container text-[#005359] px-3 py-1 rounded-full font-label text-[10px] font-bold tracking-widest uppercase">YOGA</span>
+            <span class="bg-black/40 backdrop-blur-md text-primary px-3 py-1 rounded-full font-label text-[10px] font-bold tracking-widest uppercase">INTERMEDIATE</span>
+          </div>
+        </div>
+        <div class="p-6 relative -mt-12">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="font-headline text-2xl font-bold tracking-tight uppercase group-hover:text-primary transition-colors">Structural Flow</h3>
+            <div class="flex items-center gap-1 text-tertiary">
+              <span class="material-symbols-outlined text-sm">schedule</span>
+              <span class="font-label text-xs font-bold">30 MIN</span>
+            </div>
+          </div>
+          <p class="text-on-surface-variant text-sm mb-6 max-w-xs leading-relaxed">Focus on mobility, core stability, and deep rhythmic breathing patterns.</p>
+          <div class="flex items-center justify-between">
+            <div class="flex -space-x-2">
+              <div class="w-8 h-8 rounded-full border-2 border-surface-container-high bg-surface-bright flex items-center justify-center overflow-hidden">
+                <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwsfZoc4hDxlmbMjrbAKiZJj2ms73ygbI28YENM4k9xEOpKo4bfgieHLMy2G1EQE20OOGjhBUWnmawi-Wm7SX1qOdeEQw72_ID40P1aI8EefsV26XVO_w5Jmhy1pVmy075Yu2kyj1uFBr_uzP_RfrR_2HAoGjHY2CyUQG3QVDE-MQ8irE5BVnqdF0U7eQSAVfgzG5T8Dreswa_ZcbQd2-GjUqMRuBjGrIaBskn5g-OgvH1LF4RAQAE1ejQY2MgmOLu4QQKBWucBPTc" alt="Trainer 2">
+              </div>
+              <div class="w-8 h-8 rounded-full border-2 border-surface-container-high bg-surface-bright flex items-center justify-center text-[10px] font-bold font-label text-on-surface-variant">+8</div>
+            </div>
+            <button class="start-workout-btn bg-primary-container text-[#4a5e00] h-10 px-6 rounded-full font-label text-xs font-black tracking-widest flex items-center gap-2 active:scale-95 transition-transform">
+              START <span class="material-symbols-outlined text-sm filled">play_arrow</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Profile Page -->
+  <main id="view-profile" class="page-section hidden pt-24 pb-32 px-6 max-w-2xl mx-auto">
+    <!-- Profile Hero Section -->
+    <section class="mb-12">
+      <div class="flex flex-col items-center text-center">
+        <div class="relative mb-6">
+          <div class="w-32 h-32 rounded-full ring-4 ring-primary p-1">
+            <img class="w-full h-full object-cover rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIyKNHuesuDjqSlRiSqMg0YcchtrsKATkkZHncXxgnVGw0MULIrbF9h8CxmQXWC5aJgQTjNsgG9DQ5yWY1H8RDFRu025LPkL1pNY4ktf9K0xcb1XP4GK64kOdaYrfMqUwKk8kzFNOB9_4l4B2PiDjNCtXDFm0HJC6drQjU7pX4lsh5aig8l1fqv7dsfAbd-fu-BrAGPa5VcKmYV2H6R4SWV9QDaZVsWaE7b8RoajVHM1uAcHLBpFogPfADHjzznfM1BrqeimBxKGcd" alt="User Profile">
+          </div>
+          <div class="absolute -bottom-2 right-0 bg-secondary p-2 rounded-full border-4 border-background">
+            <span class="material-symbols-outlined filled text-white text-lg">star</span>
+          </div>
+        </div>
+        <h1 class="font-headline font-black text-4xl tracking-tighter uppercase mb-1">MARCUS VANCE</h1>
+        <p class="font-label text-on-surface-variant tracking-widest text-sm uppercase">Elite Performer • Level 42</p>
+      </div>
+    </section>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-2 gap-4 mb-12">
+      <div class="bg-surface-container-high rounded-xl p-6 flex flex-col justify-between aspect-square">
+        <span class="font-label text-xs text-on-surface-variant tracking-widest uppercase">Total Energy</span>
+        <div>
+          <span class="font-headline font-black text-5xl text-primary">12.4k</span>
+          <p class="font-label text-[10px] text-primary/60 mt-1 uppercase">kcal burned this month</p>
+        </div>
+      </div>
+      <div class="bg-surface-container-high rounded-xl p-6 flex flex-col justify-between aspect-square relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-24 h-24 bg-secondary/10 rounded-full -mr-8 -mt-8 blur-2xl"></div>
+        <span class="font-label text-xs text-on-surface-variant tracking-widest uppercase">Current Streak</span>
+        <div>
+          <span class="font-headline font-black text-5xl text-secondary">14</span>
+          <p class="font-label text-[10px] text-secondary/60 mt-1 uppercase">Days active</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Badges Section -->
+    <section class="mb-12">
+      <h2 class="font-headline font-bold text-xl uppercase tracking-tight mb-6 flex items-center gap-2">
+        <span class="w-8 h-[2px] bg-primary"></span>
+        Achievements
+      </h2>
+      <div class="grid grid-cols-3 gap-4">
+        <!-- Badge 1 -->
+        <div class="bg-surface-container-low rounded-xl p-4 flex flex-col items-center text-center gap-3">
+          <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+            <span class="material-symbols-outlined filled text-primary text-3xl">local_fire_department</span>
+          </div>
+          <span class="font-label text-[10px] font-bold leading-tight uppercase">7 Day<br>Streak</span>
+        </div>
+        <!-- Badge 2 -->
+        <div class="bg-surface-container-low rounded-xl p-4 flex flex-col items-center text-center gap-3 border border-primary/10">
+          <div class="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center">
+            <span class="material-symbols-outlined filled text-tertiary text-3xl">footprint</span>
+          </div>
+          <span class="font-label text-[10px] font-bold leading-tight uppercase">10k<br>Steps</span>
+        </div>
+        <!-- Badge 3 -->
+        <div class="bg-surface-container-low rounded-xl p-4 flex flex-col items-center text-center gap-3">
+          <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
+            <span class="material-symbols-outlined filled text-secondary text-3xl">workspace_premium</span>
+          </div>
+          <span class="font-label text-[10px] font-bold leading-tight uppercase">Early<br>Bird</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Activity -->
+    <section>
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="font-headline font-bold text-xl uppercase tracking-tight flex items-center gap-2">
+          <span class="w-8 h-[2px] bg-secondary"></span>
+          Recent Activity
+        </h2>
+        <button class="font-label text-[10px] text-primary tracking-widest uppercase">View All</button>
+      </div>
+      <div class="space-y-3">
+        <!-- Log 1 -->
+        <div class="bg-surface-container-high rounded-xl p-5 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-lg bg-background flex items-center justify-center">
+            <span class="material-symbols-outlined text-primary">fitness_center</span>
+          </div>
+          <div class="flex-1">
+            <h4 class="font-headline font-bold text-sm uppercase">Hypertrophy Chest</h4>
+            <p class="font-label text-[10px] text-on-surface-variant tracking-wider uppercase">Oct 24 • 54 mins</p>
+          </div>
+          <div class="text-right">
+            <span class="font-headline font-black text-lg text-primary">482</span>
+            <p class="font-label text-[8px] text-on-surface-variant uppercase">kcal</p>
+          </div>
+        </div>
+        <!-- Log 2 -->
+        <div class="bg-surface-container-high rounded-xl p-5 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-lg bg-background flex items-center justify-center">
+            <span class="material-symbols-outlined text-tertiary">directions_run</span>
+          </div>
+          <div class="flex-1">
+            <h4 class="font-headline font-bold text-sm uppercase">Recovery Run</h4>
+            <p class="font-label text-[10px] text-on-surface-variant tracking-wider uppercase">Oct 22 • 32 mins</p>
+          </div>
+          <div class="text-right">
+            <span class="font-headline font-black text-lg text-tertiary">310</span>
+            <p class="font-label text-[8px] text-on-surface-variant uppercase">kcal</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Navigation -->
+  <nav id="bottom-nav" class="fixed bottom-6 left-0 right-0 z-50 flex justify-around items-center h-16 max-w-md mx-auto bg-[#262626]/60 backdrop-blur-lg rounded-full shadow-[0_20px_40px_rgba(0,0,0,0.4)] px-2 hidden">
+    <!-- Active state style: bg-[#f3ffca] text-[#0e0e0e] rounded-full px-6 py-2 scale-110 (and filled icon) -->
+    <!-- Inactive state style: text-[#adaaaa] px-6 py-2 hover:text-white scale-95 (and outline icon) -->
+    <a href="#dashboard" class="nav-button flex flex-col items-center justify-center bg-[#f3ffca] text-[#0e0e0e] rounded-full transition-all duration-200 ease-out px-6 py-2 scale-110" data-target="dashboard">
+      <span class="nav-icon material-symbols-outlined filled mb-1">grid_view</span>
+      <span class="font-label text-[10px] font-bold tracking-widest uppercase">DASHBOARD</span>
+    </a>
+    
+    <a href="#workouts" class="nav-button flex flex-col items-center justify-center text-[#adaaaa] transition-all duration-200 ease-out px-6 py-2 scale-95 hover:text-white" data-target="workouts">
+      <span class="nav-icon material-symbols-outlined mb-1">fitness_center</span>
+      <span class="font-label text-[10px] font-bold tracking-widest uppercase">WORKOUTS</span>
+    </a>
+    
+    <a href="#profile" class="nav-button flex flex-col items-center justify-center text-[#adaaaa] transition-all duration-200 ease-out px-6 py-2 scale-95 hover:text-white" data-target="profile">
+      <span class="nav-icon material-symbols-outlined mb-1">person</span>
+      <span class="font-label text-[10px] font-bold tracking-widest uppercase">PROFILE</span>
+    </a>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
