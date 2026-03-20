@@ -11,14 +11,14 @@ router.post('/add', auth, async (req, res) => {
     const newWorkout = new Workout({ user: req.user.id, name, duration, calories });
     const workout = await newWorkout.save();
     res.json(workout);
-  } catch (err) { res.status(500).send('Server Error'); }
+  } catch (err) { res.status(500).json({msg: 'Workout Error: ' + err.message}); }
 });
 
 router.get('/history', auth, async (req, res) => {
   try {
     const workouts = await Workout.find({ user: req.user.id }).sort({ date: -1 });
     res.json(workouts);
-  } catch (err) { res.status(500).send('Server Error'); }
+  } catch (err) { res.status(500).json({msg: 'Workout Error: ' + err.message}); }
 });
 
 module.exports = router;

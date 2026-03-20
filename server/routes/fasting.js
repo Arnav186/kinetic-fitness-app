@@ -22,7 +22,7 @@ router.post('/stop', auth, async (req, res) => {
     activeFast.endTime = new Date();
     await activeFast.save();
     res.json(activeFast);
-  } catch (err) { res.status(500).send('Server Error'); }
+  } catch (err) { res.status(500).json({msg: 'Fast Error: ' + err.message}); }
 });
 
 router.get('/status', auth, async (req, res) => {
@@ -33,7 +33,7 @@ router.get('/status', auth, async (req, res) => {
     } else {
       res.json({ active: false });
     }
-  } catch (err) { res.status(500).send('Server Error'); }
+  } catch (err) { res.status(500).json({msg: 'Fast Error: ' + err.message}); }
 });
 
 router.get('/history', auth, async (req, res) => {
