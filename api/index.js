@@ -18,6 +18,11 @@ const connectDB = async () => {
     return cached.conn;
   }
 
+  if (!process.env.MONGODB_URI) {
+    cached.error = "MONGODB_URI environment variable is not defined. Please add it to your environment setting.";
+    return;
+  }
+
   if (!cached.promise) {
     const opts = {
       serverSelectionTimeoutMS: 5000,
