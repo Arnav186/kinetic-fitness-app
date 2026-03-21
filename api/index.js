@@ -7,6 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 let cached = global.mongoose;
+mongoose.set('bufferCommands', false); // Globally disable buffering so we get real errors instead of timeouts
 
 if (!cached) {
   cached = global.mongoose = { conn: null, promise: null, error: null };
@@ -49,9 +50,11 @@ const connectDB = async () => {
 app.use(async (req, res, next) => {
   await connectDB();
   
-  // Verify that the actual connection is established and healthy
   if (mongoose.connection.readyState !== 1) {
-    return res.status(500).json({ msg: 'Atlas DB Error: ' + (cached.error || 'Unknown connection issue') });
+    return res.status(500).json({ 
+      msg: 'Atlas DB Error: ' + (cached.error || 'Unknown connection issue'), 
+      readyState: mongoose.connection.readyState 
+    });
   }
   
   next();

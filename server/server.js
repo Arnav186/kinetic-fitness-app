@@ -7,14 +7,13 @@ const app = express();
 app.use(cors());
 app.use(express.json({ extended: false }));
 
-const { MongoMemoryServer } = require('mongodb-memory-server');
-
 async function connectDB() {
-  const mongoServer = await MongoMemoryServer.create();
-  const uri = mongoServer.getUri();
-  
-  await mongoose.connect(uri);
-  console.log('In-Memory MongoDB Connected');
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('MongoDB Atlas Connected Locally');
+  } catch (err) {
+    console.error('Error connecting to MongoDB:', err.message);
+  }
 }
 
 connectDB();

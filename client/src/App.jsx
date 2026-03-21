@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard';
 import AddWorkout from './components/AddWorkout';
 import FastingTracker from './components/FastingTracker';
 import BmiCalculator from './components/BmiCalculator';
+import WorkoutPlanner from './components/WorkoutPlanner';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="/add-workout" element={<AddWorkout />} />
             <Route path="/fasting" element={<FastingTracker />} />
             <Route path="/bmi" element={<BmiCalculator />} />
+            <Route path="/planner" element={<WorkoutPlanner />} />
             <Route path="*" element={<Navigate to="/dashboard" />} />
           </Routes>
         </main>
