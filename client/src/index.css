@@ -1,34 +1,97 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #cafd00;
-  --color-background: #0e0e0e;
-  --font-headline: 'Lexend', sans-serif;
-  --font-body: 'Manrope', sans-serif;
-  --font-label: 'Space Grotesk', sans-serif;
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
 
-  --animate-fade-in: fade-in 0.5s ease-out;
-  --animate-bounce-in: bounce-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --font-headline: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-label: 'Outfit', sans-serif;
+
+  --animate-fade-in: fade-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-bounce-in: bounce-in 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 3s ease-in-out infinite;
 
   @keyframes fade-in {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes bounce-in {
-    0% { opacity: 0; transform: scale(0.3) translateY(50px); }
-    50% { opacity: 1; transform: scale(1.05) translateY(-5px); }
+    0% { opacity: 0; transform: scale(0.8) translateY(20px); }
+    50% { opacity: 1; transform: scale(1.02) translateY(-2px); }
     100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 0.5; filter: blur(40px); }
+    50% { opacity: 0.8; filter: blur(50px); }
   }
 }
 
+:root {
+  /* LIGHT MODE (Default) */
+  --primary: #00bcd4; /* cyan variation that pops on white */
+  --secondary: #e91e63; /* pink variation that pops on white */
+  --accent: #5e35b1;
+  --background: #f8f9fa; /* very light grey/white */
+  --surface: rgba(255, 255, 255, 0.85); /* slightly opaque white */
+  --surface-hover: rgba(240, 240, 245, 0.9);
+  --border: rgba(0, 0, 0, 0.08);
+  --text: #1f2937; /* gray-800 */
+  --text-muted: #6b7280; /* gray-500 */
+}
+
+:root.dark {
+  /* DARK MODE (Midnight Horizon) */
+  --primary: #00eefc; 
+  --secondary: #ff007f;
+  --accent: #7000ff;
+  --background: #030305;
+  --surface: rgba(20, 20, 30, 0.4);
+  --surface-hover: rgba(40, 40, 60, 0.5);
+  --border: rgba(255, 255, 255, 0.05);
+  --text: #ffffff;
+  --text-muted: #9ca3af;
+}
+
 body {
-  background-color: var(--color-background);
-  color: #fff;
+  background-color: var(--background);
+  color: var(--text);
   font-family: var(--font-body);
+  transition: background-color 0.4s ease, color 0.4s ease;
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
 body::-webkit-scrollbar {
   display: none;
+}
+
+.glass-panel {
+  background: var(--color-surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
 }

@@ -21,4 +21,14 @@ router.get('/history', async (req, res) => {
   } catch (err) { res.status(500).json({msg: 'Workout Error: ' + err.message}); }
 });
 
+router.delete('/:id', async (req, res) => {
+  try {
+    const workout = await Workout.findByIdAndDelete(req.params.id);
+    if (!workout) return res.status(404).json({ msg: 'Workout not found' });
+    res.json({ msg: 'Workout deleted' });
+  } catch (err) {
+    res.status(500).json({ msg: 'Workout Error: ' + err.message });
+  }
+});
+
 module.exports = router;

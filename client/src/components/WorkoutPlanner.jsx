@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { WorkoutContext } from '../context/WorkoutContext';
 import { 
   CheckCircle, Timer, RefreshCw, 
   Target, Zap, Trophy, X, Heart
@@ -29,9 +30,20 @@ function ActivityIcon() {
 }
 
 export default function WorkoutPlanner() {
-  const [goal, setGoal] = useState('Muscle Gain');
-  const [level, setLevel] = useState('Intermediate');
-  const [completedDays, setCompletedDays] = useState([]);
+  const { addWorkout } = useContext(WorkoutContext);
+
+  const [goal, setGoal] = useState(() => localStorage.getItem('kinetic_goal') || 'Muscle Gain');
+  const [level, setLevel] = useState(() => localStorage.getItem('kinetic_level') || 'Intermediate');
+  const [completedDays, setCompletedDays] = useState(() => {
+    const saved = localStorage.getItem('kinetic_completed_days');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('kinetic_goal', goal);
+    localStorage.setItem('kinetic_level', level);
+    localStorage.setItem('kinetic_completed_days', JSON.stringify(completedDays));
+  }, [goal, level, completedDays]);
   const [quote] = useState(QUOTES[Math.floor(Math.random() * QUOTES.length)]);
   
   // Rest Timer State
@@ -57,6 +69,12 @@ export default function WorkoutPlanner() {
       setCompletedDays(completedDays.filter(d => d !== dayObj.day));
     } else {
       setCompletedDays([...completedDays, dayObj.day]);
+      // Connect to global workouts
+      addWorkout({
+        name: `${dayObj.muscle} Workout`,
+        duration: 45,
+        calories: 300
+      });
     }
   };
 
@@ -88,54 +106,56 @@ export default function WorkoutPlanner() {
     <div className="pb-24 animate-fade-in space-y-6 pt-6">
       <div className="flex justify-between items-center mb-2">
         <div>
-          <h1 className="text-3xl font-black italic tracking-tighter uppercase text-white">Your Plan</h1>
-          <p className="text-sm font-semibold tracking-widest text-[#f3ffca] uppercase mt-1">Weekly Blueprint</p>
+          <h1 className="text-3xl font-black italic tracking-tighter uppercase text-[color:var(--text)]">Your Plan</h1>
+          <p className="text-sm font-semibold tracking-widest text-[color:var(--primary)] uppercase mt-1">Weekly Blueprint</p>
         </div>
-        <div className="h-12 w-12 bg-neutral-900 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(243,255,202,0.1)] border border-neutral-800">
-          <Trophy className="text-[#f3ffca]" size={24} />
+        <div className="h-12 w-12 glass-panel rounded-full flex items-center justify-center shadow-sm border border-[color:var(--color-border)]">
+          <Trophy className="text-[color:var(--primary)]" size={24} />
         </div>
       </div>
 
-      <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-4 shadow-xl mb-6">
-        <p className="text-neutral-400 italic text-sm text-center">"{quote}"</p>
+      <div className="glass-panel border border-[color:var(--color-border)] rounded-2xl p-4 shadow-xl mb-6">
+        <p className="text-[color:var(--text-muted)] italic text-sm text-center">"{quote}"</p>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="bg-neutral-900 p-4 border border-neutral-800 rounded-2xl shadow-lg">
-          <label className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2 block">Fitness Goal</label>
+        <div className="glass-panel p-4 border border-[color:var(--color-border)] rounded-2xl shadow-lg">
+          <label className="text-[10px] font-bold text-[color:var(--text-muted)] op-70 uppercase tracking-widest mb-2 block">Fitness Goal</label>
           <select 
-            className="w-full bg-transparent text-[#f3ffca] font-semibold focus:outline-none appearance-none cursor-pointer"
+            className="w-full bg-transparent text-[color:var(--primary)] font-semibold focus:outline-none appearance-none cursor-pointer text-center"
+            style={{ textAlignLast: 'center' }}
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
           >
-            <option className="bg-neutral-900 text-white" value="Muscle Gain">💪 Muscle Gain</option>
-            <option className="bg-neutral-900 text-white" value="Fat Loss">🔥 Fat Loss</option>
-            <option className="bg-neutral-900 text-white" value="Maintenance">⚖️ Maintenance</option>
+            <option className="glass-panel text-[color:var(--text)]" value="Muscle Gain">💪 Muscle Gain</option>
+            <option className="glass-panel text-[color:var(--text)]" value="Fat Loss">🔥 Fat Loss</option>
+            <option className="glass-panel text-[color:var(--text)]" value="Maintenance">⚖️ Maintenance</option>
           </select>
         </div>
-        <div className="bg-neutral-900 p-4 border border-neutral-800 rounded-2xl shadow-lg">
-          <label className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-2 block">Experience Level</label>
+        <div className="glass-panel p-4 border border-[color:var(--color-border)] rounded-2xl shadow-lg">
+          <label className="text-[10px] font-bold text-[color:var(--text-muted)] op-70 uppercase tracking-widest mb-2 block">Experience Level</label>
           <select 
-            className="w-full bg-transparent text-[#f3ffca] font-semibold focus:outline-none appearance-none cursor-pointer"
+            className="w-full bg-transparent text-[color:var(--primary)] font-semibold focus:outline-none appearance-none cursor-pointer text-center"
+            style={{ textAlignLast: 'center' }}
             value={level}
             onChange={(e) => setLevel(e.target.value)}
           >
-            <option className="bg-neutral-900 text-white" value="Beginner">Beginner</option>
-            <option className="bg-neutral-900 text-white" value="Intermediate">Intermediate</option>
-            <option className="bg-neutral-900 text-white" value="Advanced">Advanced</option>
+            <option className="glass-panel text-[color:var(--text)]" value="Beginner">Beginner</option>
+            <option className="glass-panel text-[color:var(--text)]" value="Intermediate">Intermediate</option>
+            <option className="glass-panel text-[color:var(--text)]" value="Advanced">Advanced</option>
           </select>
         </div>
       </div>
 
       {/* Progress Bar */}
       <div className="space-y-2 pt-2">
-        <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-neutral-400">
+        <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-[color:var(--text-muted)]">
           <span>Weekly Progress</span>
-          <span className="text-[#f3ffca]">{progressPct}%</span>
+          <span className="text-[color:var(--primary)]">{progressPct}%</span>
         </div>
-        <div className="h-3 w-full bg-neutral-900 rounded-full overflow-hidden border border-neutral-800">
+        <div className="h-3 w-full glass-panel rounded-full overflow-hidden border border-[color:var(--color-border)]">
           <div 
-            className="h-full bg-[#f3ffca] rounded-full transition-all duration-1000 ease-out shadow-[0_0_15px_rgba(243,255,202,0.8)]"
+            className="h-full bg-[var(--primary)] rounded-full transition-all duration-1000 ease-out "
             style={{ width: `${progressPct}%` }}
           />
         </div>
@@ -149,33 +169,33 @@ export default function WorkoutPlanner() {
           return (
             <div 
               key={idx} 
-              className={`relative bg-neutral-900 border ${isCompleted ? 'border-[#f3ffca]/30' : 'border-neutral-800'} rounded-3xl p-5 shadow-xl overflow-hidden transition-all duration-300 hover:border-neutral-600 group`}
+              className={`relative glass-panel border ${isCompleted ? 'border-[#f3ffca]/30' : 'border-[color:var(--color-border)]'} rounded-3xl p-5 shadow-xl overflow-hidden transition-all duration-300 hover:border-neutral-600 group`}
             >
               {isCompleted && (
-                <div className="absolute top-0 right-0 w-16 h-16 bg-[#f3ffca]/10 rounded-bl-full flex items-start justify-end p-3">
-                  <CheckCircle size={20} className="text-[#f3ffca]" />
+                <div className="absolute top-0 right-0 w-16 h-16 bg-[var(--primary)]/10 rounded-bl-full flex items-start justify-end p-3">
+                  <CheckCircle size={20} className="text-[color:var(--primary)]" />
                 </div>
               )}
               
               <div className="flex items-center gap-3 mb-4">
-                <div className={`p-3 rounded-xl ${isCompleted ? 'bg-[#f3ffca] text-[#0e0e0e]' : 'bg-neutral-800 text-neutral-400'}`}>
+                <div className={`p-3 rounded-xl ${isCompleted ? 'bg-[var(--primary)] text-[#0e0e0e]' : 'bg-[var(--color-surface-hover)] text-[color:var(--text-muted)]'}`}>
                   {plan.icon}
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-white tracking-tight">{plan.day}</h3>
-                  <p className={`text-sm tracking-wide font-medium ${isCompleted ? 'text-[#f3ffca]' : 'text-neutral-500'}`}>{plan.muscle}</p>
+                  <h3 className="text-xl font-bold text-[color:var(--text)] tracking-tight">{plan.day}</h3>
+                  <p className={`text-sm tracking-wide font-medium ${isCompleted ? 'text-[color:var(--primary)]' : 'text-[color:var(--text-muted)] op-70'}`}>{plan.muscle}</p>
                 </div>
               </div>
 
               <div className="space-y-3 mb-5">
                 {plan.exercises.map((ex, i) => (
-                  <div key={i} className="flex justify-between items-center group-hover:bg-neutral-800/50 p-2 rounded-lg transition-colors">
+                  <div key={i} className="flex justify-between items-center group-hover:bg-[var(--color-surface-hover)]/50 p-2 rounded-lg transition-colors">
                     <div className="flex items-center gap-2">
                       <div className="w-1.5 h-1.5 rounded-full bg-neutral-700"></div>
                       <span className="text-sm font-medium text-neutral-300">{formatExerciseName(ex)}</span>
                     </div>
                     {!isRestDay && (
-                      <span className="text-xs font-mono text-neutral-500">{getAdjustedSetsReps()}</span>
+                      <span className="text-xs font-mono text-[color:var(--text-muted)] op-70">{getAdjustedSetsReps()}</span>
                     )}
                   </div>
                 ))}
@@ -186,8 +206,8 @@ export default function WorkoutPlanner() {
                   onClick={() => toggleDayCompletion(plan)}
                   className={`flex-1 py-3 px-4 rounded-xl font-bold uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all duration-300 ${
                     isCompleted 
-                      ? 'bg-transparent border border-[#f3ffca]/30 text-[#f3ffca] hover:bg-[#f3ffca]/10' 
-                      : 'bg-[#f3ffca] text-[#0e0e0e] hover:shadow-[0_0_20px_rgba(243,255,202,0.4)] hover:-translate-y-0.5'
+                      ? 'bg-transparent border border-[#f3ffca]/30 text-[color:var(--primary)] hover:bg-[var(--primary)]/10' 
+                      : 'bg-[var(--primary)] text-[#0e0e0e] hover:-translate-y-0.5'
                   }`}
                 >
                   {isCompleted ? 'Completed' : 'Start Workout'}
@@ -196,14 +216,14 @@ export default function WorkoutPlanner() {
                 {!isCompleted && !isRestDay && (
                   <button 
                     onClick={() => startRestTimer(60)}
-                    className="p-3 bg-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-700 rounded-xl transition-colors border border-transparent hover:border-neutral-600"
+                    className="p-3 bg-[var(--color-surface-hover)] text-[color:var(--text-muted)] hover:text-[color:var(--text)] hover:bg-neutral-700 rounded-xl transition-colors border border-transparent hover:border-neutral-600"
                     title="Start 60s Rest Timer"
                   >
                     <Timer size={20} />
                   </button>
                 )}
                 {!isCompleted && (
-                  <button className="p-3 bg-neutral-800 text-neutral-400 hover:text-white hover:bg-neutral-700 rounded-xl transition-colors border border-transparent hover:border-neutral-600" title="Swap Workout">
+                  <button className="p-3 bg-[var(--color-surface-hover)] text-[color:var(--text-muted)] hover:text-[color:var(--text)] hover:bg-neutral-700 rounded-xl transition-colors border border-transparent hover:border-neutral-600" title="Swap Workout">
                     <RefreshCw size={20} />
                   </button>
                 )}
@@ -215,19 +235,19 @@ export default function WorkoutPlanner() {
 
       {/* Floating Rest Timer */}
       {showTimer && (
-        <div className="fixed bottom-24 right-4 bg-neutral-900 border border-[#f3ffca] shadow-[0_10px_40px_rgba(0,0,0,0.8)] rounded-2xl p-4 flex items-center gap-4 z-50 animate-bounce-in">
-          <div className="relative w-12 h-12 flex items-center justify-center bg-black rounded-full border border-neutral-800">
-            <span className={`font-mono font-bold ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-[#f3ffca]'}`}>
+        <div className="fixed bottom-24 right-4 glass-panel border border-[#f3ffca] shadow-lg rounded-2xl p-4 flex items-center gap-4 z-50 animate-bounce-in">
+          <div className="relative w-12 h-12 flex items-center justify-center bg-black rounded-full border border-[color:var(--color-border)]">
+            <span className={`font-mono font-bold ${timeLeft <= 10 ? 'text-red-500 animate-pulse' : 'text-[color:var(--primary)]'}`}>
               {timeLeft}s
             </span>
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-neutral-400">Rest Timer</p>
-            <p className="text-sm font-medium text-white">{timeLeft > 0 ? 'Catch your breath' : 'Time to push!'}</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-[color:var(--text-muted)]">Rest Timer</p>
+            <p className="text-sm font-medium text-[color:var(--text)]">{timeLeft > 0 ? 'Catch your breath' : 'Time to push!'}</p>
           </div>
           <div className="flex gap-2 ml-2">
-            <button onClick={() => setTimeLeft(prev => prev + 30)} className="p-2 bg-neutral-800 rounded-lg hover:bg-neutral-700 text-xs font-bold text-neutral-300">+30s</button>
-            <button onClick={() => { setShowTimer(false); setTimerActive(false); }} className="p-2 bg-neutral-800 rounded-lg hover:bg-neutral-700 text-neutral-400 hover:text-white">
+            <button onClick={() => setTimeLeft(prev => prev + 30)} className="p-2 bg-[var(--color-surface-hover)] rounded-lg hover:bg-neutral-700 text-xs font-bold text-neutral-300">+30s</button>
+            <button onClick={() => { setShowTimer(false); setTimerActive(false); }} className="p-2 bg-[var(--color-surface-hover)] rounded-lg hover:bg-neutral-700 text-[color:var(--text-muted)] hover:text-[color:var(--text)]">
               <X size={16} />
             </button>
           </div>
