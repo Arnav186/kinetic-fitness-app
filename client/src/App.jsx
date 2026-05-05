@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard';
 import AddWorkout from './components/AddWorkout';
 import BmiCalculator from './components/BmiCalculator';
 import WorkoutPlanner from './components/WorkoutPlanner';
+import IntervalTimer from './components/IntervalTimer';
 import { ThemeProvider } from './context/ThemeContext';
 import { WorkoutProvider } from './context/WorkoutContext';
 
@@ -21,6 +22,7 @@ function App() {
                 <Route path="/add-workout" element={<AddWorkout />} />
                 <Route path="/bmi" element={<BmiCalculator />} />
                 <Route path="/planner" element={<WorkoutPlanner />} />
+                <Route path="/timer" element={<IntervalTimer />} />
                 <Route path="*" element={<Navigate to="/dashboard" />} />
               </Routes>
             </main>
