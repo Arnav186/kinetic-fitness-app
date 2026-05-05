@@ -114,10 +114,8 @@ export default function Dashboard() {
           Rest Timer
         </button>
         <button onClick={() => {
-          if(window.confirm('Are you sure you want to reset all data?')) {
-            localStorage.clear();
-            window.location.reload();
-          }
+          localStorage.clear();
+          window.location.reload();
         }} className="glass-panel py-3 rounded-xl flex items-center justify-center gap-2 font-label text-[10px] tracking-widest uppercase text-red-500 hover:bg-red-500/10 transition-colors border border-[color:var(--color-border)]">
            Reset Data
         </button>
