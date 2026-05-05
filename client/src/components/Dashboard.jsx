@@ -59,7 +59,7 @@ export default function Dashboard() {
 
       <div className="text-center mb-8 relative">
         <div className="relative inline-block mb-4">
-           <img className="w-24 h-24 rounded-full mx-auto border-2 border-[color:var(--primary)] shadow-[0_0_20px_rgba(0,238,252,0.3)] object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDvvfc1k6lRomrDNenUoWzTZVQhL0-KrHXD8XCfLsvl5A_ZvGgBTi0spLnP0KNLpJ7IvyvmgPCIzEX_8lDcpucQ_Jbn4Qfy0JDlU4YIt3X7X3CRrSnVPZqwqweJy3UmEaqkAuQ9ettPNjCgSEdKGS2cK-HeBPw9921A0Yw767K-v5sM-a2QwCVyrKmJ3o-9XobtyD8eCXU3avuRlDj6yNSvDquM6-TvadWpS4zWgQlU5A8yYPvfNoSxSoHGYsEE7CXt8Cy8LMuXfPs" alt="User" />
+            <img className="w-24 h-24 rounded-full mx-auto border-2 border-[color:var(--primary)] shadow-[0_0_20px_rgba(0,238,252,0.3)] object-cover" src="/avatar.png" alt="User" />
            <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-[var(--primary)] rounded-full flex items-center justify-center text-black border-4 border-[color:var(--background)]">
              <Trophy size={14} fill="currentColor" />
            </div>
