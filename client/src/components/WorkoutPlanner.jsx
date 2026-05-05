@@ -127,9 +127,9 @@ export default function WorkoutPlanner() {
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
           >
-            <option className="glass-panel text-[color:var(--text)]" value="Muscle Gain">💪 Muscle Gain</option>
-            <option className="glass-panel text-[color:var(--text)]" value="Fat Loss">🔥 Fat Loss</option>
-            <option className="glass-panel text-[color:var(--text)]" value="Maintenance">⚖️ Maintenance</option>
+            <option className="glass-panel text-[color:var(--text)]" value="Muscle Gain">Muscle Gain</option>
+            <option className="glass-panel text-[color:var(--text)]" value="Fat Loss">Fat Loss</option>
+            <option className="glass-panel text-[color:var(--text)]" value="Maintenance">Maintenance</option>
           </select>
         </div>
         <div className="glass-panel p-4 border border-[color:var(--color-border)] rounded-2xl shadow-lg">
