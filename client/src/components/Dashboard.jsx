@@ -70,11 +70,11 @@ export default function Dashboard() {
     <div className="pb-32 pt-8 sm:pt-10 max-w-md mx-auto space-y-8 animate-fade-in relative z-10">
       <div className="text-center mb-8 relative">
         <img className="w-20 h-20 rounded-full mx-auto mb-4 border border-[color:var(--color-border)] shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDvvfc1k6lRomrDNenUoWzTZVQhL0-KrHXD8XCfLsvl5A_ZvGgBTi0spLnP0KNLpJ7IvyvmgPCIzEX_8lDcpucQ_Jbn4Qfy0JDlU4YIt3X7X3CRrSnVPZqwqweJy3UmEaqkAuQ9ettPNjCgSEdKGS2cK-HeBPw9921A0Yw767K-v5sM-a2QwCVyrKmJ3o-9XobtyD8eCXU3avuRlDj6yNSvDquM6-TvadWpS4zWgQlU5A8yYPvfNoSxSoHGYsEE7CXt8Cy8LMuXfPs" alt="User" />
-        <h1 className="font-headline font-black text-4xl tracking-tighter uppercase mb-1 text-[color:var(--text)]">FITNESS RACE</h1>
+        <h1 className="font-headline font-black text-4xl tracking-tighter uppercase mb-1 text-[color:var(--text)]">FITNESS FREAK</h1>
         {savedBmi ? (
           <p className="font-label text-gray-400 tracking-widest text-xs uppercase">BMI: <span className="text-[color:var(--primary)] font-bold">{savedBmi.value}</span> ({savedBmi.category})</p>
         ) : (
-          <p className="font-label text-gray-400 tracking-widest text-xs uppercase">Elite Performance</p>
+          <p className="font-label text-gray-400 tracking-widest text-xs uppercase">Keep Grinding!!!</p>
         )}
       </div>
 
