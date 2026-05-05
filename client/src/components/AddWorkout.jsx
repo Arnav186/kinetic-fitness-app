@@ -18,9 +18,7 @@ export default function AddWorkout() {
       <div className="absolute top-0 right-0 w-64 h-64 bg-[var(--primary)]/5 rounded-full -z-10"></div>
       
       <div className="flex items-center gap-4 mb-8">
-        <div className="w-12 h-12 rounded-xl bg-[var(--primary)]/10 flex items-center justify-center border border-[color:var(--color-border)]">
-          <span className="material-symbols-outlined text-[color:var(--primary)]">add_task</span>
-        </div>
+
         <div>
           <h1 className="text-3xl font-black font-headline uppercase tracking-tighter text-[color:var(--text)] leading-none">Log Burn</h1>
           <p className="font-label text-[color:var(--text-muted)] tracking-widest text-[10px] uppercase mt-1">Record Performance</p>
@@ -31,8 +29,7 @@ export default function AddWorkout() {
         <div className="space-y-2">
           <label className="font-label text-[10px] tracking-widest uppercase text-[color:var(--text-muted)]">Protocol</label>
           <div className="relative">
-            <span className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-[color:var(--text-muted)] material-symbols-outlined text-[18px]">sports_gymnastics</span>
-            <input className="w-full bg-[var(--color-surface-hover)] border border-[color:var(--color-border)] rounded-xl py-4 pl-12 pr-4 text-[color:var(--text)] focus:ring-1 focus:ring-[var(--primary)]/50 transition-all font-body text-sm outline-none placeholder:text-gray-600" type="text" placeholder="e.g. HIIT Full Body" required onChange={e=>setFormData({...formData, name: e.target.value})} />
+            <input className="w-full bg-[var(--color-surface-hover)] border border-[color:var(--color-border)] rounded-xl py-4 px-4 text-[color:var(--text)] focus:ring-1 focus:ring-[var(--primary)]/50 transition-all font-body text-sm outline-none placeholder:text-gray-600" type="text" placeholder="e.g. HIIT Full Body" required onChange={e=>setFormData({...formData, name: e.target.value})} />
           </div>
         </div>
         
@@ -40,22 +37,19 @@ export default function AddWorkout() {
           <div className="space-y-2">
             <label className="font-label text-[10px] tracking-widest uppercase text-[color:var(--text-muted)]">Duration (Mins)</label>
             <div className="relative">
-              <span className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-[color:var(--text-muted)] material-symbols-outlined text-[18px]">schedule</span>
-              <input className="w-full bg-[var(--color-surface-hover)] border border-[color:var(--color-border)] rounded-xl py-4 pl-12 pr-4 text-[color:var(--text)] focus:ring-1 focus:ring-[var(--primary)]/50 transition-all font-body text-sm outline-none placeholder:text-gray-600" type="number" min="1" placeholder="45" required onChange={e=>setFormData({...formData, duration: Number(e.target.value)})} />
+              <input className="w-full bg-[var(--color-surface-hover)] border border-[color:var(--color-border)] rounded-xl py-4 px-4 text-[color:var(--text)] focus:ring-1 focus:ring-[var(--primary)]/50 transition-all font-body text-sm outline-none placeholder:text-gray-600" type="number" min="1" placeholder="45" required onChange={e=>setFormData({...formData, duration: Number(e.target.value)})} />
             </div>
           </div>
           <div className="space-y-2">
             <label className="font-label text-[10px] tracking-widest uppercase text-[color:var(--text-muted)]">Calories</label>
             <div className="relative">
-              <span className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-[color:var(--secondary)] material-symbols-outlined text-[18px]">local_fire_department</span>
-              <input className="w-full bg-[var(--color-surface-hover)] border border-[color:var(--color-border)] rounded-xl py-4 pl-12 pr-4 text-[color:var(--text)] focus:ring-1 focus:ring-[var(--secondary)]/50 transition-all font-body text-sm outline-none placeholder:text-gray-600" type="number" min="1" placeholder="450" required onChange={e=>setFormData({...formData, calories: Number(e.target.value)})} />
+              <input className="w-full bg-[var(--color-surface-hover)] border border-[color:var(--color-border)] rounded-xl py-4 px-4 text-[color:var(--text)] focus:ring-1 focus:ring-[var(--secondary)]/50 transition-all font-body text-sm outline-none placeholder:text-gray-600" type="number" min="1" placeholder="450" required onChange={e=>setFormData({...formData, calories: Number(e.target.value)})} />
             </div>
           </div>
         </div>
         
         <button className="w-full bg-[var(--primary)] text-[#0e0e0e] font-headline font-black py-4 mt-6 rounded-xl tracking-widest uppercase flex items-center justify-center gap-2 transition-colors active:scale-95 disabled:opacity-50" type="submit">
           <span>Upload Data</span>
-          <span className="material-symbols-outlined text-[18px]">upload</span>
         </button>
       </form>
     </div>

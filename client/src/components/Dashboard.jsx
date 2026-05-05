@@ -82,7 +82,7 @@ export default function Dashboard() {
         <div className="col-span-2 glass-panel rounded-2xl p-6 flex flex-col justify-center items-center h-36 relative overflow-hidden text-center">
           <div>
             <span className="font-label text-[10px] tracking-[0.2em] text-[color:var(--text-muted)] uppercase flex items-center justify-center gap-1">
-              <span className="material-symbols-outlined text-[14px] text-[color:var(--secondary)]">local_fire_department</span> Total Calories
+              Total Calories
             </span>
             <div className="font-headline text-5xl font-black mt-1 drop-shadow-lg text-[color:var(--text)]">{totalCals}</div>
           </div>
@@ -96,7 +96,6 @@ export default function Dashboard() {
 
         <div className="glass-panel rounded-2xl p-5 flex flex-col items-center justify-center gap-2 relative overflow-hidden text-center">
           <div className="flex flex-col items-center justify-center z-10">
-            <span className="material-symbols-outlined text-[color:var(--secondary)] text-2xl mb-1">whatshot</span>
             <span className="font-label text-[10px] text-[color:var(--text-muted)] uppercase tracking-widest">Streak</span>
           </div>
           <div className="font-headline text-4xl font-black mt-1 z-10 text-[color:var(--text)]">{streak} <span className="text-sm font-label text-[color:var(--text-muted)] uppercase">days</span></div>
@@ -104,7 +103,6 @@ export default function Dashboard() {
 
         <div className="glass-panel rounded-2xl p-5 flex flex-col items-center justify-center gap-2 relative overflow-hidden text-center">
            <div className="flex flex-col items-center justify-center z-10">
-             <span className="material-symbols-outlined text-[color:var(--primary)] text-2xl mb-1">timer</span>
              <span className="font-label text-[10px] text-[color:var(--text-muted)] uppercase tracking-widest">Workouts</span>
            </div>
            <div className="font-headline text-4xl font-black mt-1 z-10 text-[color:var(--text)]">{workouts.length} <span className="text-sm font-label text-[color:var(--text-muted)] uppercase">Total</span></div>
@@ -113,7 +111,6 @@ export default function Dashboard() {
 
       <div className="grid grid-cols-2 gap-4">
         <button onClick={() => { setShowTimer(true); setTimeLeft(60); setTimerActive(true); }} className="glass-panel py-3 rounded-xl flex items-center justify-center gap-2 font-label text-[10px] tracking-widest uppercase hover:bg-[var(--color-surface-hover)] transition-colors border border-[color:var(--color-border)]">
-          <span className="material-symbols-outlined text-[color:var(--primary)] text-[16px]">timer</span>
           Rest Timer
         </button>
         <button onClick={() => {
@@ -122,7 +119,6 @@ export default function Dashboard() {
             window.location.reload();
           }
         }} className="glass-panel py-3 rounded-xl flex items-center justify-center gap-2 font-label text-[10px] tracking-widest uppercase text-red-500 hover:bg-red-500/10 transition-colors border border-[color:var(--color-border)]">
-           <span className="material-symbols-outlined text-[16px]">restart_alt</span>
            Reset Data
         </button>
       </div>
@@ -163,7 +159,6 @@ export default function Dashboard() {
               <li key={w._id} className="flex justify-between items-center glass-panel p-4 rounded-2xl shadow-lg border border-transparent hover:border-primary/30 transition-all duration-300">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-full bg-[var(--color-surface-hover)] flex items-center justify-center border border-[color:var(--color-border)]">
-                     <span className="material-symbols-outlined text-[color:var(--primary)] text-xl">fitness_center</span>
                   </div>
                   <div>
                     <p className="font-headline font-bold uppercase text-sm text-[color:var(--text)]">{w.name}</p>
@@ -195,7 +190,7 @@ export default function Dashboard() {
           <div className="flex gap-2 ml-2">
             <button onClick={() => setTimeLeft(prev => prev + 30)} className="p-2 bg-[var(--color-surface-hover)] rounded-lg hover:bg-neutral-700 text-xs font-bold text-[color:var(--text-muted)]">+30s</button>
             <button onClick={() => { setShowTimer(false); setTimerActive(false); }} className="p-2 bg-[var(--color-surface-hover)] rounded-lg hover:bg-neutral-700 text-[color:var(--text-muted)] hover:text-[color:var(--text)]">
-              <span className="material-symbols-outlined text-sm">close</span>
+              Close
             </button>
           </div>
         </div>

@@ -29,9 +29,7 @@ export default function BmiCalculator() {
       <div className="absolute top-1/4 right-0 w-64 h-64 bg-[var(--secondary)]/5 rounded-full -z-10"></div>
       
       <div className="flex items-center gap-4 mb-8">
-        <div className="w-12 h-12 rounded-xl bg-[var(--secondary)]/10 flex items-center justify-center border border-[color:var(--color-border)]">
-          <span className="material-symbols-outlined text-[color:var(--secondary)]">monitor_weight</span>
-        </div>
+
         <div>
           <h1 className="text-3xl font-black font-headline uppercase tracking-tighter text-[color:var(--text)] leading-none">Mass Index</h1>
           <p className="font-label text-[color:var(--text-muted)] tracking-widest text-[10px] uppercase mt-1">Calibrate Baseline</p>
@@ -42,26 +40,22 @@ export default function BmiCalculator() {
         <div className="space-y-2">
           <label className="font-label text-[10px] tracking-widest uppercase text-[color:var(--text-muted)]">Vertical Axis (cm)</label>
           <div className="relative">
-            <span className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-[color:var(--text-muted)] material-symbols-outlined text-[18px]">height</span>
-            <input className="w-full bg-[var(--color-surface-hover)] border border-[color:var(--color-border)] rounded-xl py-4 pl-12 pr-4 text-[color:var(--text)] focus:ring-1 focus:ring-[var(--secondary)]/50 transition-all font-body text-sm outline-none placeholder:text-gray-600" type="number" min="1" placeholder="175" required onChange={e=>setHeight(e.target.value)} />
+            <input className="w-full bg-[var(--color-surface-hover)] border border-[color:var(--color-border)] rounded-xl py-4 px-4 text-[color:var(--text)] focus:ring-1 focus:ring-[var(--secondary)]/50 transition-all font-body text-sm outline-none placeholder:text-gray-600" type="number" min="1" placeholder="175" required onChange={e=>setHeight(e.target.value)} />
           </div>
         </div>
         <div className="space-y-2">
           <label className="font-label text-[10px] tracking-widest uppercase text-[color:var(--text-muted)]">Gravitational Mass (kg)</label>
           <div className="relative">
-            <span className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-[color:var(--text-muted)] material-symbols-outlined text-[18px]">scale</span>
-            <input className="w-full bg-[var(--color-surface-hover)] border border-[color:var(--color-border)] rounded-xl py-4 pl-12 pr-4 text-[color:var(--text)] focus:ring-1 focus:ring-[var(--secondary)]/50 transition-all font-body text-sm outline-none placeholder:text-gray-600" type="number" min="1" placeholder="70" required onChange={e=>setWeight(e.target.value)} />
+            <input className="w-full bg-[var(--color-surface-hover)] border border-[color:var(--color-border)] rounded-xl py-4 px-4 text-[color:var(--text)] focus:ring-1 focus:ring-[var(--secondary)]/50 transition-all font-body text-sm outline-none placeholder:text-gray-600" type="number" min="1" placeholder="70" required onChange={e=>setWeight(e.target.value)} />
           </div>
         </div>
         <button className="w-full bg-[var(--secondary)] text-[#0e0e0e] font-headline font-black py-4 mt-6 rounded-xl tracking-widest uppercase flex items-center justify-center gap-2 transition-colors active:scale-95" type="submit">
           Calculate
-          <span className="material-symbols-outlined text-[18px]">analytics</span>
         </button>
       </form>
 
       {bmi && (
         <div className="glass-panel p-8 rounded-3xl border border-[color:var(--color-border)] flex flex-col items-center text-center shadow-lg transform animate-fade-in relative overflow-hidden">
-          <span className="material-symbols-outlined text-[color:var(--secondary)] text-3xl mb-2">speed</span>
           <p className="text-[color:var(--text-muted)] font-label text-[10px] uppercase tracking-widest mb-1">Calculated BMI Rating</p>
           <p className="text-7xl font-black text-[color:var(--text)] font-headline tracking-tighter mb-2">{bmi}</p>
           <div className="bg-[var(--secondary)]/10 border border-[var(--secondary)]/20 px-4 py-1.5 rounded-full mt-2">
