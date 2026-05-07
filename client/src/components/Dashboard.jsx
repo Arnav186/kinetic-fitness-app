@@ -2,13 +2,14 @@ import { useEffect, useState, useContext } from 'react';
 import { BarChart, Bar, XAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import { Link } from 'react-router-dom';
 import { WorkoutContext } from '../context/WorkoutContext';
-import { Zap, Flame, Trophy, History, Play } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { Zap, Flame, Trophy, History, Play, Loader2 } from 'lucide-react';
 
 export default function Dashboard() {
-  const { workouts } = useContext(WorkoutContext);
+  const { workouts, loading } = useContext(WorkoutContext);
+  const { currentUser } = useAuth();
   const [totalCals, setTotalCals] = useState(0);
   const [streak, setStreak] = useState(0);
-  
   const [savedBmi, setSavedBmi] = useState(null);
 
   useEffect(() => {
@@ -27,11 +28,12 @@ export default function Dashboard() {
   const calculateStreak = (data) => {
     if(!data.length) return;
     let currentStreak = 1;
-    let lastDate = new Date(data[0].date);
+    const sortedData = [...data].sort((a, b) => new Date(b.date) - new Date(a.date));
+    let lastDate = new Date(sortedData[0].date);
     lastDate.setHours(0,0,0,0);
     
-    for(let i = 1; i < data.length; i++) {
-        let prevDate = new Date(data[i].date);
+    for(let i = 1; i < sortedData.length; i++) {
+        let prevDate = new Date(sortedData[i].date);
         prevDate.setHours(0,0,0,0);
         let diff = (lastDate - prevDate) / (1000 * 60 * 60 * 24);
         if (diff === 1) {
@@ -51,6 +53,15 @@ export default function Dashboard() {
     calories: w.calories
   }));
 
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <Loader2 className="animate-spin text-primary" size={48} />
+        <p className="font-label text-sm uppercase tracking-[0.3em] text-text-muted">Loading Kinetic Data...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="pb-32 pt-8 sm:pt-10 max-w-md mx-auto space-y-8 animate-fade-in relative z-10">
       {/* Background Ambient Glows */}
@@ -64,11 +75,13 @@ export default function Dashboard() {
              <Trophy size={14} fill="currentColor" />
            </div>
         </div>
-        <h1 className="font-headline font-black text-5xl tracking-tighter uppercase mb-1 shimmer-text">FITNESS FREAK</h1>
+        <h1 className="font-headline font-black text-5xl tracking-tighter uppercase mb-1 shimmer-text">
+          {currentUser?.email?.split('@')[0] || 'ATHLETE'}
+        </h1>
         {savedBmi ? (
           <p className="font-label text-gray-400 tracking-widest text-[10px] uppercase">BMI: <span className="text-[color:var(--primary)] font-black">{savedBmi.value}</span> • {savedBmi.category}</p>
         ) : (
-          <p className="font-label text-gray-400 tracking-widest text-[10px] uppercase font-bold">Keep Grinding!!!</p>
+          <p className="font-label text-gray-400 tracking-widest text-[10px] uppercase font-bold">Account Verified: {currentUser?.email}</p>
         )}
       </div>
 
@@ -114,10 +127,12 @@ export default function Dashboard() {
           Pro Timer
         </Link>
         <button onClick={() => {
-          localStorage.clear();
-          window.location.reload();
+          if (confirm("This will clear local cache and reload. Cloud data remains safe.")) {
+            localStorage.clear();
+            window.location.reload();
+          }
         }} className="glass-panel py-4 rounded-xl flex items-center justify-center gap-2 font-label text-[10px] tracking-widest uppercase text-red-500/70 hover:text-red-500 hover:bg-red-500/10 transition-all border border-[color:var(--color-border)] hover:scale-[1.02] active:scale-95">
-           Reset Data
+           Reset Cache
         </button>
       </div>
 
@@ -147,7 +162,7 @@ export default function Dashboard() {
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-headline text-xl font-bold uppercase tracking-tight flex items-center gap-2">
             <span className="w-8 h-1 bg-[var(--primary)] rounded-full"></span>
-            Workout History
+            Cloud History
           </h2>
         </div>
         
@@ -177,3 +192,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
