@@ -28,7 +28,7 @@ A modern, full-stack fitness tracking web application built with **React**, **Fi
 
 | Layer | Technology |
 |---|---|
-| Frontend | React 19, Vite, TailwindCSS v4 |
+| Frontend | React, Vite, CSS |
 | Routing | React Router DOM v7 |
 | Authentication | Firebase Auth (Email/Password) |
 | Database | Firebase Cloud Firestore |
