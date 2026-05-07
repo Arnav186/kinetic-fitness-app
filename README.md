@@ -38,33 +38,6 @@ A modern, full-stack fitness tracking web application built with **React**, **Fi
 
 ---
 
-##  Firestore Security Rules
-
-Paste these rules in your **Firestore → Rules** tab to protect user data:
-
-```javascript
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{userId}/{document=**} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-  }
-}
-```
-
----
-
-##  Deployment (Vercel)
-
-1. Push your code to GitHub.
-2. Go to [Vercel](https://vercel.com/) and import the repository.
-3. Set **Root Directory** to `client`.
-4. Add all your environment variables from `.env` in the Vercel dashboard.
-5. Click **Deploy**.
-
----
-
 ##  Project Structure
 
 ```
@@ -93,18 +66,6 @@ kinetic-fitness-app/
 │   └── package.json
 └── README.md
 ```
-
----
-
-##  Contributing
-
-Pull requests are welcome! For major changes, please open an issue first.
-
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
