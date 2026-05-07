@@ -38,53 +38,6 @@ A modern, full-stack fitness tracking web application built with **React**, **Fi
 
 ---
 
-##  Getting Started (Local Development)
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/Arnav186/kinetic-fitness-app.git
-cd kinetic-fitness-app/client
-```
-
-### 2. Install Dependencies
-
-```bash
-npm install
-```
-
-### 3. Set Up Firebase
-
-1. Go to [Firebase Console](https://console.firebase.google.com/) and create a project.
-2. Enable **Email/Password** under **Authentication → Sign-in method**.
-3. Create a **Cloud Firestore** database.
-4. Copy your Firebase config from **Project Settings → Web App**.
-
-### 4. Configure Environment Variables
-
-Create a `.env` file inside the `client/` directory:
-
-```env
-VITE_FIREBASE_API_KEY=your_api_key
-VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
-VITE_FIREBASE_PROJECT_ID=your_project_id
-VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
-VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
-VITE_FIREBASE_APP_ID=your_app_id
-```
-
->  **Never commit your `.env` file to GitHub.** It is already in `.gitignore`.
-
-### 5. Run the App
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:5173](http://localhost:5173) in your browser.
-
----
-
 ##  Firestore Security Rules
 
 Paste these rules in your **Firestore → Rules** tab to protect user data:
